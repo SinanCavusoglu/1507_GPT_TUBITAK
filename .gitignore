@@ -1,0 +1,14 @@
+*.pdf
+*.txt
+*.csv
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ipynb_checkpoints
+*.virtual_documents
+*.parquet
+*.exe
+*.pickle
+*.json
+!key_words.txt
