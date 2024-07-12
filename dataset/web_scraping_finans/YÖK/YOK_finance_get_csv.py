@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-# Ekonomi = Economics", "Maliye = Finance"
-subject_list = ["Ev Ekonomisi = Home Economics", "Uluslararası Ticaret = International Trade"]
+
+subject_list = ["Ekonomi = Economics", "Maliye = Finance"]
                 
 for subject in subject_list:
     download = True
