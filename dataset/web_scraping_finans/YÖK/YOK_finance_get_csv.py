@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-
-subject_list = ["Ekonomi = Economics", "Maliye = Finance"]
+# , 
+subject_list = ["Maliye = Finance"]
                 
 for subject in subject_list:
     download = True
@@ -59,7 +59,7 @@ for subject in subject_list:
         time.sleep(2)
 
         while True:
-            
+        
             
             list_thesis = driver.find_elements(by=By.XPATH,value='//*[@id="div1"]/table/tbody/tr')
             
@@ -72,7 +72,7 @@ for subject in subject_list:
                 try:
                     click_detail_pdf = driver.find_element(by=By.XPATH, value=f'//*[@id="div1"]/table/tbody/tr[{num}]/td[2]/span') 
                     driver.execute_script("arguments[0].click();", click_detail_pdf)
-                    time.sleep(1.5)
+                    time.sleep(1.4)
                 except NoSuchElementException:
                     
                     print("All Theses are Finished")
@@ -93,7 +93,7 @@ for subject in subject_list:
                     driver.execute_script("arguments[0].click();", pdf_url_btn)
                 
                 close_btn = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div[1]/a'))) 
-                time.sleep(1.5)
+                time.sleep(1.4)
                 close_btn.click()
                 
             next_page = driver.find_element(by=By.XPATH, value='//*[@id="div1"]/table/tfoot/tr/td/div/div[1]/div/ul/li[7]')
