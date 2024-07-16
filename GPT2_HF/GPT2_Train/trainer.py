@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, GPT2Config, GPT2LMHeadModel, Trainer, Tr
 from datasets import load_dataset
 import wandb
 from transformers import AdamW, TrainerCallback
-
+"""
 # chatgptye yazdırdım kontrol et, youtubede video var bak ona
 class PushToHubCallback(TrainerCallback):
     def __init__(self, trainer=None):
@@ -21,7 +21,7 @@ class PushToHubCallback(TrainerCallback):
             # Hub'a yükle
             if self.trainer.args.push_to_hub:
                 self.trainer.push_to_hub()
-
+"""
 def get_model_size_dict(size):
     if size == 'gpt2':
         return dict(n_layer=12, n_head=12, n_embd=768)  # 124M params
@@ -59,7 +59,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         save_steps=config.eval_interval,
         warmup_steps=config.warmup_iters,
         max_steps=config.max_iters,
-        lr_scheduler_type="linear" if config.decay_lr else "constant",
+        lr_scheduler_type="cosine" if config.decay_lr else "constant",
         weight_decay=config.weight_decay,
         logging_dir='./logs',
         report_to="wandb",
@@ -74,7 +74,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         data_collator=DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False),
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        callbacks=[PushToHubCallback(trainer)]  # youtubede video var bak bozuk olabilir
+        #callbacks=[PushToHubCallback(trainer)]  # youtubede video var bak bozuk olabilir
     )
 
     return trainer
