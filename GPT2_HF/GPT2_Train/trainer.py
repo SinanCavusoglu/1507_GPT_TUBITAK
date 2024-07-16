@@ -2,26 +2,8 @@ import argparse
 from transformers import AutoTokenizer, GPT2Config, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from datasets import load_dataset
 import wandb
-from transformers import AdamW, TrainerCallback
-"""
-# chatgptye yazdırdım kontrol et, youtubede video var bak ona
-class PushToHubCallback(TrainerCallback):
-    def __init__(self, trainer=None):
-        super().__init__()
-        self.trainer = trainer
-        self.best_loss = float('inf')
+from transformers import AdamW
 
-    def on_evaluate(self, args, state, control, **kwargs):
-        logs = kwargs.get('logs', {})
-        current_loss = logs.get('eval_loss', None)
-        if current_loss is not None and current_loss < self.best_loss:
-            self.best_loss = current_loss
-            # Modeli kaydet
-            self.trainer.save_model()
-            # Hub'a yükle
-            if self.trainer.args.push_to_hub:
-                self.trainer.push_to_hub()
-"""
 def get_model_size_dict(size):
     if size == 'gpt2':
         return dict(n_layer=12, n_head=12, n_embd=768)  # 124M params
@@ -74,8 +56,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         args=training_args,
         data_collator=DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False),
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
-        #callbacks=[PushToHubCallback(trainer)]  # youtubede video var bak bozuk olabilir
+        eval_dataset=eval_dataset
     )
 
     return trainer
@@ -100,7 +81,7 @@ if __name__ == "__main__":
     parser.add_argument("--block_size", type=int, default=1024)
     parser.add_argument("--gradient_accumulation", type=int, default=8)
     parser.add_argument("--eval_interval", type=int, default=2000)
-    parser.add_argument("--log_interval", type=int, default=1)
+    parser.add_argument("--log_interval", type=int, default=10)
     parser.add_argument("--warmup_iters", type=int, default=2000)
     parser.add_argument("--max_iters", type=int, default=600000)
     parser.add_argument("--weight_decay", type=float, default=0.1)
