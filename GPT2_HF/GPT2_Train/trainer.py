@@ -1,5 +1,5 @@
 import argparse
-from transformers import AutoTokenizer, GPT2Config, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling, get_scheduler
+from transformers import GPT2Tokenizer, GPT2Config, GPT2LMHeadModel, Trainer, TrainingArguments, DataCollatorForLanguageModeling, get_scheduler
 from datasets import load_dataset
 import wandb
 from transformers import AdamW
@@ -69,7 +69,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
 
 def main(args):
     wandb.init(project="gpt2_tuning", config=vars(args))
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+    tokenizer = GPT2Tokenizer.from_pretrained(args.tokenizer)
     model = initialize_model(tokenizer, args)
     train_dataset, eval_dataset = load_data(args.dataset)
     trainer = setup_trainer(model, tokenizer, train_dataset, eval_dataset, args)
