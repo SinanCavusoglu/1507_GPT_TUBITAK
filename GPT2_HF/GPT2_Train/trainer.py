@@ -53,8 +53,8 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         evaluation_strategy="steps",
         eval_steps=config.eval_interval,
         push_to_hub=True,
-        hub_model_id="YourModelID",  # Model ID'nizi buraya girin
-        hub_token="YourHuggingFaceToken",  # Hugging Face token'ınızı buraya girin
+        hub_model_id="YourModelID",  # sonra gir
+        hub_token="YourHuggingFaceToken",  # sonra gir
         logging_steps=config.log_interval,
         save_steps=config.eval_interval,
         warmup_steps=config.warmup_iters,
@@ -106,7 +106,6 @@ if __name__ == "__main__":
     parser.add_argument("--decay_lr", type=bool, default=True)
     parser.add_argument("--grad_clip", type=float, default=1.0)
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
-
     args = parser.parse_args()
 
     main(args)
