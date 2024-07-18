@@ -38,4 +38,4 @@ if __name__ == "__main__":
     main(args)
 
 
-# python toenizer.py --tokenizer sergeantson/1507_Law_Tokenizer --dataset sergeantson/1507_law_dataset --save_path ./tokenized_law
+# python tokenizer.py --tokenizer sergeantson/1507_Law_Tokenizer --dataset sergeantson/1507_law_dataset --save_path ./tokenized_law

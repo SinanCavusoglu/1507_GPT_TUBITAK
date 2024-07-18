@@ -5,14 +5,6 @@ import wandb
 from transformers import AdamW
 
 
-def tokenize_data(tokenizer, dataset):
-    def tokenize_function(examples):
-        
-        return tokenizer(examples['text'] ,truncation=True, max_length=1024)
-    
-    tokenized_datasets = dataset.map(tokenize_function, batched=True)
-    return tokenized_datasets
-
 
 def get_model_size_dict(size):
     if size == 'gpt2':

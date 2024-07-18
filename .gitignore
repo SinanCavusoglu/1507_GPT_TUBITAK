@@ -11,4 +11,5 @@
 *.exe
 *.pickle
 *.json
+*.arrow
 !key_words.txt
