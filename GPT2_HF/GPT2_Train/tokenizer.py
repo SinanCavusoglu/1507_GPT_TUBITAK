@@ -25,10 +25,7 @@ def ensure_dir(directory):
 import argparse
 
 def main(args):
-    # Ensure the output directory exists
     ensure_dir(args.save_path)
-
-    # Tokenize and save the dataset
     tokenize_and_save_data(args.dataset, args.tokenizer, args.save_path)
 
 if __name__ == "__main__":
