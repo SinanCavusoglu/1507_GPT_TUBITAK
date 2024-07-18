@@ -35,7 +35,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--tokenizer", type=str, required=True, help="Pretrained tokenizer model name")
     parser.add_argument("--dataset", type=str, required=True, help="Dataset to load and tokenize")
-    parser.add_argument("--save_path", type=str, default="./tokenized_law", help="Path to save the tokenized dataset")
+    parser.add_argument("--save_path", type=str, required="True", help="Path to save the tokenized dataset")
     
     args = parser.parse_args()
     main(args)
+
+
+# python toenizer.py --tokenizer sergeantson/1507_Law_Tokenizer --dataset sergeantson/1507_law_dataset --save_path ./tokenized_law
