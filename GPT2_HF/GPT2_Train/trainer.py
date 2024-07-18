@@ -4,6 +4,16 @@ from datasets import load_dataset
 import wandb
 from transformers import AdamW
 
+
+def tokenize_data(tokenizer, dataset):
+    def tokenize_function(examples):
+        
+        return tokenizer(examples['text'] ,truncation=True, max_length=1024)
+    
+    tokenized_datasets = dataset.map(tokenize_function, batched=True)
+    return tokenized_datasets
+
+
 def get_model_size_dict(size):
     if size == 'gpt2':
         return dict(n_layer=12, n_head=12, n_embd=768)  # 124M params
@@ -22,7 +32,7 @@ def initialize_model(tokenizer, config):
     return model
 
 def load_data(dataset):
-    dataset = load_dataset(dataset)
+    dataset = load_dataset(dataset)                  # Tokenize işlerini başka bie yerde yap sonra burada load et
     return dataset['train'], dataset['validation']
 
 def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
