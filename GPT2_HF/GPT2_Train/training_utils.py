@@ -1,8 +1,15 @@
 from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling, AdamW, get_scheduler
 
 def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
-    optimizer = AdamW(model.parameters(), lr=config.learning_rate, betas=(0.9, 0.95), eps=1e-8, weight_decay=config.weight_decay)
-    scheduler = get_scheduler("cosine" if config.decay_lr else "constant", optimizer=optimizer, num_warmup_steps=config.warmup_iters, num_training_steps=config.max_iters)
+    optimizer = AdamW(model.parameters(), 
+                      lr=config.learning_rate, 
+                      betas=(0.9, 0.95), 
+                      eps=1e-8, 
+                      weight_decay=config.weight_decay)
+    scheduler = get_scheduler("cosine" if config.decay_lr else "constant", 
+                              optimizer=optimizer, 
+                              num_warmup_steps=config.warmup_iters, 
+                              num_training_steps=config.max_iters)
     
     training_args = TrainingArguments(
         output_dir='./results',

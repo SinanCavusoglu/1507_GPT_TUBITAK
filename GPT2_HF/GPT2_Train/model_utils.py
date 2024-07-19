@@ -13,5 +13,5 @@ def initialize_model(tokenizer, config):
     model_config_dict = get_model_size_dict(config.size)
     model_config = GPT2Config(bos_token_id = 0,eos_token_id=0,**model_config_dict)
     model = GPT2LMHeadModel(model_config)
-    tokenizer.pad_token = tokenizer.eos_token  # Ensure that the tokenizer's pad token is set
+    tokenizer.pad_token = tokenizer.eos_token
     return model

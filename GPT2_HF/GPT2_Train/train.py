@@ -24,7 +24,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_train_epochs", type=int, default=3)
     parser.add_argument("--batch_size", type=int, default=12)
     parser.add_argument("--block_size", type=int, default=1024)
-    parser.add_argument("--gradient_accumulation", type=int, default=8)
+  # bunun gpu başına mı  #parser.add_argument("--gradient_accumulation", type=int, default= 4*2) 2=gpu's number #When using gradient accumulation, one step is counted as one step with backward pass. Therefore, logging, evaluation, save will be conducted every gradient_accumulation_steps * xxx_step training examples.
     parser.add_argument("--eval_interval", type=int, default=2000)
     parser.add_argument("--log_interval", type=int, default=10)
     parser.add_argument("--warmup_iters", type=int, default=2000)
@@ -33,5 +33,6 @@ if __name__ == "__main__":
     parser.add_argument("--decay_lr", type=bool, default=True)
     parser.add_argument("--grad_clip", type=float, default=1.0)
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
+    parser.add_argument("--dropout", type=float, default=)
     args = parser.parse_args()
     main(args)

@@ -1,4 +1,4 @@
-# First Run Tokenizer
+# First Run tokenizer.py
 
 from datasets import load_from_disk
 

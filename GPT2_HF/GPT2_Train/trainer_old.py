@@ -56,7 +56,6 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
                   report_to="wandb",
                   gradient_checkpointing=True,
                   max_grad_norm=config.grad_clip,
-                  block_size=config.block_size,
                   fp16=True
     )
 
