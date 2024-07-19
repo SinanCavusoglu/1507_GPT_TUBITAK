@@ -17,6 +17,21 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    # Add all required arguments
+    parser.add_argument("--tokenizer", type=str, help="Huggingface tokenizer URL")
+    parser.add_argument("--dataset_path", type=str, help="tokenizer.py output in local(./tokenized_law)")
+    parser.add_argument("--size", choices=['gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl'], required=True,
+                        help="Model size (124M params, 350M params, 774M params, 1558M params)")
+    parser.add_argument("--num_train_epochs", type=int, default=3)
+    parser.add_argument("--batch_size", type=int, default=12)
+    parser.add_argument("--block_size", type=int, default=1024)
+    parser.add_argument("--gradient_accumulation", type=int, default=8)
+    parser.add_argument("--eval_interval", type=int, default=2000)
+    parser.add_argument("--log_interval", type=int, default=10)
+    parser.add_argument("--warmup_iters", type=int, default=2000)
+    parser.add_argument("--max_iters", type=int, default=600000)
+    parser.add_argument("--weight_decay", type=float, default=0.1)
+    parser.add_argument("--decay_lr", type=bool, default=True)
+    parser.add_argument("--grad_clip", type=float, default=1.0)
+    parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
     args = parser.parse_args()
     main(args)
