@@ -1,41 +1,47 @@
 from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling, AdamW, get_scheduler
 
 def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
-    optimizer = AdamW(model.parameters(), 
-                      lr=config.learning_rate, 
-                      betas=(0.9, 0.95), 
-                      eps=1e-8, 
-                      weight_decay=config.weight_decay)
-    scheduler = get_scheduler("cosine" if config.decay_lr else "constant", 
-                              optimizer=optimizer, 
-                              num_warmup_steps=config.warmup_iters, 
-                              num_training_steps=config.max_iters)
     
     training_args = TrainingArguments(
+        # GPU için ayarlamaları araştır
         output_dir='./results',
-        num_train_epochs=config.num_train_epochs,
-        per_device_train_batch_size=config.batch_size,
-        per_device_eval_batch_size=config.batch_size,
         evaluation_strategy="steps",
         eval_steps=config.eval_interval,
+        logging_dir='logs',
         logging_steps=config.log_interval,
-        save_steps=config.eval_interval,
-        warmup_steps=config.warmup_iters,
+        per_device_train_batch_size=config.batch_size,
+        per_device_eval_batch_size=config.batch_size,
+        gradient_accumulation_steps=config.gradient_accumulation,
+        learning_rate=config.learning_rate,
+        weight_decay=config.weight_decay,
+        adam_beta1=0.9,
+        adam_beta2=0.95,  
         max_steps=config.max_iters,
-        report_to="wandb",
-        gradient_checkpointing=True,
         max_grad_norm=config.grad_clip,
-        fp16=True
+        warmup_steps=config.warmup_iters,
+        lr_scheduler_type='linear',
+        fp16=True,
+        fp16_backend='auto',
+        save_strategy='steps',
+        save_steps=config.eval_interval,
+        report_to='wandb',
+        wandb_run_name=config.size,
+        seed=42,
+        dataloader_num_workers= #BAK,
+        metric_for_best_model='loss',
+        gradient_checkpointing=True,
+        push_to_hub=,
+        hub_model_id=,                          # Değişkenleri sonra gir !!!
+        hub_token=, 
     )
     
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
     
-    trainer = Trainer(
+    #trainer = Trainer(
         model=model,
         args=training_args,
         data_collator=data_collator,
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
-        optimizers=(optimizer, scheduler)
-    )
+        eval_dataset=eval_dataset
+        )
     return trainer
