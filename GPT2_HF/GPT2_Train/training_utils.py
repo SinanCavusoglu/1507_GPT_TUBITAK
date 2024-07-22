@@ -3,7 +3,6 @@ from transformers import Trainer, TrainingArguments, DataCollatorForLanguageMode
 def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
     
     training_args = TrainingArguments(
-        # GPU için ayarlamaları araştır
         output_dir='./results',
         evaluation_strategy="steps",
         eval_steps=config.eval_interval,
@@ -27,17 +26,17 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         report_to='wandb',
         wandb_run_name=config.size,
         seed=42,
-        dataloader_num_workers= #BAK,
+        dataloader_num_workers= 4,
         metric_for_best_model='loss',
         gradient_checkpointing=True,
-        push_to_hub=,
-        hub_model_id=,                          # Değişkenleri sonra gir !!!
-        hub_token=, 
+        #push_to_hub= True,  
+        #hub_model_id= "asdf",  # Değişkenleri sonra gir !!!
+        #hub_token= "asdf"      # Değişkenleri sonra gir !!!
     )
     
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
     
-    #trainer = Trainer(
+    trainer = Trainer(
         model=model,
         args=training_args,
         data_collator=data_collator,
