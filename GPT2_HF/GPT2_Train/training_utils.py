@@ -31,7 +31,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         gradient_checkpointing=True,
         #push_to_hub= True,  
         #hub_model_id= "asdf",  # Değişkenleri sonra gir !!!
-        #hub_token= "asdf"      # Değişkenleri sonra gir !!!
+        #hub_token= "asdf"      # Değişkenleri sonra gir !!! Gerekmiyor sanırım en son yükleriz
     )
     
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
