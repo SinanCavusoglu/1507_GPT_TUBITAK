@@ -13,4 +13,6 @@
 *.json
 *.arrow
 *.rar
+**/results/
+**/__pycache__/
 !key_words.txt

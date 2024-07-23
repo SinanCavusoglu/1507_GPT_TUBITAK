@@ -19,7 +19,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         max_grad_norm=config.grad_clip,
         warmup_steps=config.warmup_iters,
         lr_scheduler_type='cosine',
-        fp16=False,
+        fp16=True,
         fp16_backend='auto',
         save_strategy='steps',
         save_steps=config.eval_interval,
@@ -27,8 +27,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         run_name=config.size,
         seed=42,
         metric_for_best_model='loss',
-        gradient_checkpointing=True,
-        use_cpu=True
+        gradient_checkpointing=True
         #push_to_hub= True,  
         #hub_model_id= "asdf",  # Değişkenleri sonra gir !!!
         #hub_token= "asdf"      # Değişkenleri sonra gir !!! Gerekmiyor sanırım en son yükleriz
