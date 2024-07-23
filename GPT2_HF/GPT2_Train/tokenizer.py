@@ -11,7 +11,7 @@ def tokenize_and_save_data(dataset_name, tokenizer_name, save_path):
     def tokenize_function(examples):
         return tokenizer(examples['text'], truncation=True, max_length=1024, padding="max_length")
 
-    tokenized_datasets = dataset.map(tokenize_function, batched=True, load_from_cache_file=False)
+    tokenized_datasets = dataset.map(tokenize_function, batched=True, load_from_cache_file=False, num_proc=6)
 
     tokenized_datasets.save_to_disk(save_path)
     print(f"Tokenized datasets saved to {save_path}")

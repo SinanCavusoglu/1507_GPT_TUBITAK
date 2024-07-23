@@ -1,9 +1,9 @@
-from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling, AdamW, get_scheduler
+from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling
 
 def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
     
     training_args = TrainingArguments(
-        output_dir='./results',
+        output_dir=config.output_dir,
         evaluation_strategy="steps",
         eval_steps=config.eval_interval,
         logging_dir='logs',
@@ -18,17 +18,17 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         max_steps=config.max_iters,
         max_grad_norm=config.grad_clip,
         warmup_steps=config.warmup_iters,
-        lr_scheduler_type='linear',
-        fp16=True,
+        lr_scheduler_type='cosine',
+        fp16=False,
         fp16_backend='auto',
         save_strategy='steps',
         save_steps=config.eval_interval,
         report_to='wandb',
-        wandb_run_name=config.size,
+        run_name=config.size,
         seed=42,
-        dataloader_num_workers= 4,
         metric_for_best_model='loss',
         gradient_checkpointing=True,
+        use_cpu=True
         #push_to_hub= True,  
         #hub_model_id= "asdf",  # Değişkenleri sonra gir !!!
         #hub_token= "asdf"      # Değişkenleri sonra gir !!! Gerekmiyor sanırım en son yükleriz

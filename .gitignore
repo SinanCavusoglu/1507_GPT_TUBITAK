@@ -12,4 +12,5 @@
 *.pickle
 *.json
 *.arrow
+*.rar
 !key_words.txt
