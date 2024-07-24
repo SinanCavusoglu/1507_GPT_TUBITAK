@@ -23,7 +23,7 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         fp16_backend='auto',
         save_strategy='steps',
         save_steps=config.eval_interval,
-        report_to='wandb',
+        report_to='wandb' if config.wandb else None,
         run_name=config.size,
         seed=42,
         metric_for_best_model='loss',
