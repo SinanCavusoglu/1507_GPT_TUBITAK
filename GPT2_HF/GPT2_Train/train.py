@@ -57,7 +57,7 @@ if __name__ == "__main__":
     parser.add_argument("--decay_lr", type=bool, default=True)
     parser.add_argument("--grad_clip", type=float, default=1.0)
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
-    parser.add_argument("--wandb", type=str, default=False, help="Open wandb?")
+    parser.add_argument("--wandb", type=bool, default=False, help="Open wandb?")
     #parser.add_argument("--dropout", type=float, default=)
     parser.set_defaults(**config_args)
     args = parser.parse_args(unknown)
