@@ -16,3 +16,4 @@
 **/results/
 **/__pycache__/
 !key_words.txt
+!args.json
