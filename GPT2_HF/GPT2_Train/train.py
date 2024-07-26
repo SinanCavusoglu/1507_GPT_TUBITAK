@@ -27,7 +27,6 @@ def main(args):
     tokenizer = GPT2Tokenizer.from_pretrained(args.tokenizer)
     model = initialize_model(tokenizer, args)
     train_dataset, eval_dataset = load_data(args.dataset_path)
-    train_dataset = train_dataset.shuffle(seed=42).select(range(1000000))
     trainer = setup_trainer(model, tokenizer, train_dataset, eval_dataset, args)
     trainer.train()
     if args.wandb:
