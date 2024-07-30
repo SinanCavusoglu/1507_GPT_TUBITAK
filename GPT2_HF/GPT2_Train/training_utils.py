@@ -23,11 +23,11 @@ def setup_trainer(model, tokenizer, train_dataset, eval_dataset, config):
         fp16_backend='auto',
         save_strategy='steps',
         save_steps=config.eval_interval,
-        report_to='wandb' if config.wandb else None,
+        report_to='wandb',
         run_name=config.size,
         seed=42,
         metric_for_best_model='loss',
-        gradient_checkpointing=True
+        gradient_checkpointing=True,
         #push_to_hub= True,  
         #hub_model_id= "asdf",  # Değişkenleri sonra gir !!!
         #hub_token= "asdf"      # Değişkenleri sonra gir !!! Gerekmiyor sanırım en son yükleriz

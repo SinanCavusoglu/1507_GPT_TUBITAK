@@ -22,15 +22,16 @@ def parse_args_from_file(file_path):
 
 
 def main(args):
-    if args.wandb:
-        wandb.init(project="gpt2_training", name=args.size,config=vars(args))
+    
+    wandb.init(project=args.project_name, name=args.size,config=vars(args))
     tokenizer = GPT2Tokenizer.from_pretrained(args.tokenizer)
     model = initialize_model(tokenizer, args)
     train_dataset, eval_dataset = load_data(args.dataset_path)
+    #train_dataset = train_dataset.shuffle(seed=42).select(range(1000000))
+    #eval_dataset = eval_dataset.shuffle(seed=42).select(range(10000))
     trainer = setup_trainer(model, tokenizer, train_dataset, eval_dataset, args)
     trainer.train()
-    if args.wandb:
-        wandb.finish()
+    wandb.finish()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -57,8 +58,8 @@ if __name__ == "__main__":
     parser.add_argument("--decay_lr", type=bool, default=True)
     parser.add_argument("--grad_clip", type=float, default=1.0)
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
-    parser.add_argument("--wandb", type=bool, default=False, help="Open wandb?")
     #parser.add_argument("--dropout", type=float, default=)
+    parser.add_argument("--project_name", type=str, default="hf_training", help="Project Name for Wandb")
     parser.set_defaults(**config_args)
     args = parser.parse_args(unknown)
     main(args)
