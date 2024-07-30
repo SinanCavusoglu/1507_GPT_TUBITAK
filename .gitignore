@@ -15,5 +15,6 @@
 *.rar
 **/results/
 **/__pycache__/
+**/wandb/
 !key_words.txt
 !args.json
