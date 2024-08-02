@@ -30,7 +30,11 @@ def main(args):
     #train_dataset = train_dataset.shuffle(seed=42).select(range(1000000))
     #eval_dataset = eval_dataset.shuffle(seed=42).select(range(10000))
     trainer = setup_trainer(model, tokenizer, train_dataset, eval_dataset, args)
-    trainer.train()
+    if args.checkpoint_bool:
+
+        trainer.train(resume_from_checkpoint=args.checkpoint)
+    else:
+        trainer.train()
     wandb.finish()
 
 if __name__ == "__main__":
@@ -60,6 +64,8 @@ if __name__ == "__main__":
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Initial learning rate for AdamW optimizer")
     #parser.add_argument("--dropout", type=float, default=)
     parser.add_argument("--project_name", type=str, default="hf_training", help="Project Name for Wandb")
+    parser.add_argument("--checkpoint_bool", type=bool, default=False)
+    parser.add_argument("--checkpoint", type=str, default = "results/")
     parser.set_defaults(**config_args)
     args = parser.parse_args(unknown)
     main(args)
