@@ -26,7 +26,7 @@ python tokenizer.py --tokenizer sergeantson/1507_Law_Tokenizer --dataset sergean
 
 To run trainer
 ```bash
-python train.py --config_file args.json 
+python train.py --config_file args.json --output_dir ./results/Law
 ```
 
 Please check the args.json file. I set the `batch_size = 1` and `gradient_accumulation = 1` to fit the GPU. You can increase the `batch_size =12` and  `gradient_accumulation = 5 * (total gpu number)`
@@ -34,6 +34,6 @@ Please check the args.json file. I set the `batch_size = 1` and `gradient_accumu
 To train with checkpoint
 
 ```bash
-python train.py --config_file args.json --project_name Law --checkpoint_bool True --checkpoint C:\tubitak_1507\1507_GPT_TUBITAK\GPT2_HF\GPT2_Train\results\checkpoint-19000
+python train.py --config_file args.json --project_name Law --checkpoint_bool True --output_dir ./results/Law --checkpoint C:\tubitak_1507\1507_GPT_TUBITAK\GPT2_HF\GPT2_Train\results\checkpoint-19000
 ```
 
