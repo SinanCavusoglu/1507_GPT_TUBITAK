@@ -1,3 +1,4 @@
+
 import os
 import time 
 
@@ -8,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 # , 
-subject_list = ["Maliye = Finance"]
+subject_list = ["Ekonomi = Economics"]
                 
 for subject in subject_list:
     download = True
@@ -26,7 +27,7 @@ for subject in subject_list:
     cService = webdriver.ChromeService(executable_path=r'C:\Users\siren\Desktop\1507\dataset\chromedriver.exe')
 
 
-    for year in range(2006,2025): # Start 2006 
+    for year in range(2022,2023): # Start 2006 
         
         print("SUBJECT:", subject)
         print("YEAR:", year)
@@ -67,36 +68,26 @@ for subject in subject_list:
                 #---------- Get Info ----------#
                 row = thesis.find_elements(By.TAG_NAME, "td")
                 thesis_no = row[1].text
+                if int(thesis_no) == 733263:
+                    continue
                 # ---------- Open PDF pop-up ---------- #
                 pdf_value = thesis.get_attribute("span")
                 try:
-                    click_detail_pdf = driver.find_element(by=By.XPATH, value=f'//*[@id="div1"]/table/tbody/tr[{num}]/td[2]/span') 
+                    click_detail_pdf = wait.until(EC.presence_of_element_located((By.XPATH, f'//*[@id="div1"]/table/tbody/tr[{num}]/td[2]/span')))
                     driver.execute_script("arguments[0].click();", click_detail_pdf)
-                    time.sleep(1.4)
+                    time.sleep(1)
                 except NoSuchElementException:
-                    
                     print("All Theses are Finished")
                     break
-                except StaleElementReferenceException:
-                    click_detail_pdf = driver.find_element(by=By.XPATH, value=f'//*[@id="div1"]/table/tbody/tr[{num}]/td[2]/span') 
-                    driver.execute_script("arguments[0].click();", click_detail_pdf)
-        
-                
                 pdf_url_btn = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="dialog-modal"]/p/table/tbody/tr[2]/td[2]/a'))) 
-                try:
-                    pdf_url = "https://tez.yok.gov.tr/UlusalTezMerkezi/" + pdf_url_btn.get_attribute("href")
-                except StaleElementReferenceException:
-                    pdf_url_btn = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="dialog-modal"]/p/table/tbody/tr[2]/td[2]/a')))
-                    pdf_url = "https://tez.yok.gov.tr/UlusalTezMerkezi/" + pdf_url_btn.get_attribute("href")
-                
                 if download == True:
                     driver.execute_script("arguments[0].click();", pdf_url_btn)
                 
                 close_btn = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div[1]/a'))) 
                 time.sleep(1.4)
                 close_btn.click()
-                
-            next_page = driver.find_element(by=By.XPATH, value='//*[@id="div1"]/table/tfoot/tr/td/div/div[1]/div/ul/li[7]')
+            
+            next_page = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="div1"]/table/tfoot/tr/td/div/div[1]/div/ul/li[7]')))
         
             if next_page.get_attribute("class") == "disabled":
                 
