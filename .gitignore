@@ -13,6 +13,7 @@
 *.json
 *.arrow
 *.rar
+*.crdownload
 **/results/
 **/__pycache__/
 **/wandb/
