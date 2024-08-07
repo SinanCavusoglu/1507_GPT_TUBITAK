@@ -28,7 +28,6 @@ def download_pdf_DP(csv):
         except InvalidArgumentException:
             continue
         driver.maximize_window()
-        time.sleep(0.5)
         print(url)
         try:
           
@@ -36,7 +35,7 @@ def download_pdf_DP(csv):
                 EC.element_to_be_clickable((By.XPATH, '//*[@id="download"]'))
             )
             download_button.click()
-            
+            time.sleep(0.7)
         except Exception as e:
             print(f"Failed to download {url}: {e}")
         finally:
@@ -84,8 +83,8 @@ def download_pdf_TRDizin(csv):
 
 pdf_df = pd.read_csv(r"C:\Users\snnfb\Desktop\1507_GPT_TUBITAK\dataset\web_scraping_finans\DergiPark\dergipark_download\noDupDergipark.csv")
 
-pdf_df_index = pdf_df[pdf_df["Article_PDF_URL"] == "https://dergipark.org.tr/tr/download/article-file/1863652"].index[0].tolist()
-pdf_df = pdf_df.iloc[pdf_df_index:]
+pdf_df_index = pdf_df[pdf_df["Article_PDF_URL"] == "https://dergipark.org.tr/tr/download/article-file/1023401"].index[0].tolist()
+pdf_df = pdf_df.iloc[pdf_df_index+1:30000]
 #dergipark_pdf_csv = pdf_df[pdf_df.Source == "DergiPark"]
 #trdizin_pdf_csv = pdf_df[pdf_df.Source == "TRDizin"]
 #trdizin_pdf_csv = trdizin_pdf_csv[1335:]
