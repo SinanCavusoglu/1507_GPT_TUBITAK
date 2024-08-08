@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import InvalidArgumentException
 
 def download_pdf_DP(csv):
-    download_dir = "C:\\Users\\snnfb\\Desktop\\1507_GPT_TUBITAK\\dataset\\web_scraping_finans\\DergiPark\\dergipark_download\\DergiPark_PDF"
+    download_dir = "C:\\Users\\siren\\Desktop\\1507\\dataset\\web_scraping_finans\\DergiPark\\dergipark_download\\DergiPark_PDF"
     chrome_options = webdriver.ChromeOptions()
     prefs = {
     "download.default_directory": download_dir,
@@ -17,7 +17,7 @@ def download_pdf_DP(csv):
     "plugins.always_open_pdf_externally": True}
     chrome_options.add_experimental_option("prefs", prefs)
     
-    cService = webdriver.ChromeService(executable_path='C:/Users/snnfb/Desktop/1507_GPT_TUBITAK/dataset/chromedriver.exe')
+    cService = webdriver.ChromeService(executable_path='C:/Users/siren/Desktop/1507/dataset/chromedriver.exe')
    
 
     url_list = csv.Article_PDF_URL.to_list()
@@ -81,10 +81,10 @@ def download_pdf_TRDizin(csv):
 """
 
 
-pdf_df = pd.read_csv(r"C:\Users\snnfb\Desktop\1507_GPT_TUBITAK\dataset\web_scraping_finans\DergiPark\dergipark_download\noDupDergipark.csv")
+pdf_df = pd.read_csv(r"C:\Users\siren\Desktop\1507\dataset\web_scraping_finans\DergiPark\dergipark_download\noDupDergipark.csv")
 
-pdf_df_index = pdf_df[pdf_df["Article_PDF_URL"] == "https://dergipark.org.tr/tr/download/article-file/1023401"].index[0].tolist()
-pdf_df = pdf_df.iloc[pdf_df_index+1:30000]
+pdf_df_index = pdf_df[pdf_df["Article_PDF_URL"] == "https://dergipark.org.tr/tr/download/article-file/873410"].index[0].tolist()
+pdf_df = pdf_df.iloc[pdf_df_index:]
 #dergipark_pdf_csv = pdf_df[pdf_df.Source == "DergiPark"]
 #trdizin_pdf_csv = pdf_df[pdf_df.Source == "TRDizin"]
 #trdizin_pdf_csv = trdizin_pdf_csv[1335:]
